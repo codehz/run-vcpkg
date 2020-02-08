@@ -28,7 +28,7 @@ describe('basic run-vcpkg tests', () => {
         process.env['INPUT_VCPKGDIRECTORY'] = vcpkgDirectory;
         process.env['INPUT_VCPKGARGUMENTS'] = 'sqlite3';
         process.env['INPUT_VCPKGGITURL'] = 'https://github.com/lukka/vcpkg.git'
-        process.env['INPUT_VCPKGGITCOMMITID'] = 'run-vcpkg-action-test';
+        process.env['INPUT_VCPKGGITCOMMITID'] = 'fix_cleanenvhelpps1';
         const ip = path.join('dist', 'index.js');
         const options: cp.ExecSyncOptions = {
             env: process.env,
