@@ -15,10 +15,32 @@ jobs:
     - uses: actions/checkout@v1
       with:
         submodules: true
+    - run: |
+        "`nAll env Vars:"
+        [System.Environment]::GetEnvironmentVariables()
+        "`nMachine:"
+        [Environment]::GetEnvironmentVariables('Machine') 
+        "`nUser:"
+        [Environment]::GetEnvironmentVariables('User')
+        "`nProcess:"
+        [Environment]::GetEnvironmentVariables('Process')
+      if: contains(matrix.os, 'windows')
+      shell: pwsh
     - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
     - run: |
+        "`nAll env Vars:"
+        [System.Environment]::GetEnvironmentVariables()
+        "`nMachine:"
+        [Environment]::GetEnvironmentVariables('Machine') 
+        "`nUser:"
+        [Environment]::GetEnvironmentVariables('User')
+        "`nProcess:"
+        [Environment]::GetEnvironmentVariables('Process')
+      if: contains(matrix.os, 'windows')
+    - run: |
         npm install
         npm run test
+      shell: bash
       name: build and test

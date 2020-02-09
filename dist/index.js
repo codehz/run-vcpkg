@@ -2089,6 +2089,19 @@ function trimString(value) {
     return _b = (_a = value) === null || _a === void 0 ? void 0 : _a.trim(), (_b !== null && _b !== void 0 ? _b : "");
 }
 exports.trimString = trimString;
+function fixDuplicateEnvironmentVariables() {
+    if (process.platform === "win32") {
+        const currentEnv = process.env;
+        for (const item in currentEnv) {
+            if (item.toLowerCase() != "path") {
+                const value = process.env[item];
+                delete process.env[item];
+                process.env[item.toLowerCase()] = value;
+            }
+        }
+    }
+}
+exports.fixDuplicateEnvironmentVariables = fixDuplicateEnvironmentVariables;
 
 //# sourceMappingURL=vcpkg-utils.js.map
 
@@ -2416,6 +2429,7 @@ class VcpkgRunner {
                     yield this.tl.execSync('chmod', ["+x", bootstrapFullPath]);
                 }
                 shTool.arg(['-c', bootstrapFullPath]);
+                vcpkgUtils.fixDuplicateEnvironmentVariables(); //?? validate problem
                 vcpkgUtils.throwIfErrorCode(yield shTool.exec(this.options));
             }
         });
